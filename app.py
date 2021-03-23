@@ -15,7 +15,8 @@ CONMEMORY = ConversationState(MemoryStorage())
 botdialog = SampleAnimationCard()
 
 
-@app.route("/api/messages",methods=["POST"])
+#@app.route("/api/messages",methods=["POST"])
+app.router.add_post("/api/messages", messages)
 def messages():
     if "application/json" in request.headers["content-type"]:
         body = request.json
@@ -35,5 +36,9 @@ def messages():
     loop.run_until_complete(task)
 
 
-if __name__ == '__main__':
-    app.run('localhost',3978)
+if __name__ == "__main__":
+    try:
+        web.run_app(APP, host="localhost", port=CONFIG.PORT)
+    except Exception as error: 
+        raise error
+        app = web.Application(middlewares=[aiohttp_error_middleware])
