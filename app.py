@@ -16,6 +16,7 @@ botdialog = SampleAnimationCard()
 
 
 #@app.route("/api/messages",methods=["POST"])
+app = web.Application(middlewares=[aiohttp_error_middleware])
 app.router.add_post("/api/messages", messages)
 def messages():
     if "application/json" in request.headers["content-type"]:
